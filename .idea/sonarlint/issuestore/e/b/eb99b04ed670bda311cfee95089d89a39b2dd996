@@ -1,0 +1,10 @@
+
+[javascript:S1854‹"9Remove this useless assignment to local variable "option"(„èÅÑúÿÿÿÿ
+njavascript:S2589Ô"LRefactor this code so that this expression does not always evaluate to true.(­œÁÄøÿÿÿÿ
+njavascript:S2589Ô"LRefactor this code so that this expression does not always evaluate to true.(­œÁÄøÿÿÿÿ
+ljavascript:S2814›"CRename "i" as this name is already used in declaration at line 151.(ñ¸ğˆÿÿÿÿÿ8áÌ¶ñ‘-
+ljavascript:S2814¯"CRename "i" as this name is already used in declaration at line 151.(ñ¸ğˆÿÿÿÿÿ8áÌ¶ñ‘-
+djavascript:UnusedVariableŒ"7Remove the declaration of the unused 'series' variable.(ŞËâ€8áÌ¶ñ‘-
+]javascript:S1854Œ"9Remove this useless assignment to local variable "series"(ŞËâ€8áÌ¶ñ‘-
+€javascript:S2703±"WAdd the "let", "const" or "var" keyword to this declaration of "x" to make it explicit.(š‘áôûÿÿÿÿ8áÌ¶ñ‘-
+{javascript:S2703²"WAdd the "let", "const" or "var" keyword to this declaration of "y" to make it explicit.(¾ıÙÓ8áÌ¶ñ‘-
