@@ -130,7 +130,7 @@ function renderChartBar01() {
                 center: ['50%', '60%'],
                 data: []
             }
-        ]
+        ],animation: false
     };
     ;
     if (option && typeof option === "object") {
@@ -248,7 +248,7 @@ function loadTwoLine() {
                 type: 'line',
                 symbol: 'emptydiamond',    //设置折线图中表示每个坐标点的符号 emptycircle：空心圆；emptyrect：空心矩形；circle：实心圆；emptydiamond：菱形
                 data: []
-            }]
+            }],animation: false
     });
     //  myChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
     var names = [];    //类别数组（实际用来盛放X轴坐标值）
