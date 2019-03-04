@@ -15,9 +15,9 @@
         $(function () {
             //饼状图
             renderChartBar01();
-            setInterval(function () {
+            /*setInterval(function () {
                 renderChartBar01();
-            }, 10000);
+            }, 10000);*/
             //质量监测
             renderLayer03Right();
             setInterval(function () {
@@ -26,9 +26,9 @@
 
             //围护墙顶竖向位移
             loadTwoLine();
-            setInterval(function () {
+            /*setInterval(function () {
                 loadTwoLine();
-            }, 10000);
+            }, 10000);*/
 
             //报警
             baojing();

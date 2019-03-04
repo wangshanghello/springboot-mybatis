@@ -130,45 +130,46 @@ function renderChartBar01() {
                 center: ['50%', '60%'],
                 data: []
             }
-        ],animation: false
+        ], animation: false
     };
     ;
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
 //饼图动态赋值
-    $.ajax({
-        type: "get",
-        url: "findProject",
-        data: {},
-        cache: false,    //禁用缓存
-        dataType: "json",
-        success: function (result) {
-            var names = [];//定义两个数组
-            var nums = [];
-            $.each(result, function (key, values) { //此处我返回的是list<String,map<String,String>>循环map
-                names.push(values.name);
-                var obj = new Object();
-                obj.name = values.name;
-                obj.value = values.value;
-                nums.push(obj);
-            });
-            myChart.setOption({ //加载数据图表
-                legend: {
-                    data: []//names
-                },
-                series: {
-                    // 根据名字对应到相应的系列
-                    name: [],
-                    data: nums
-                }
-            });
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("查询失败");
-        }
-    })
-
+    setInterval(function () {
+        $.ajax({
+            type: "get",
+            url: "findProject",
+            data: {},
+            cache: false,    //禁用缓存
+            dataType: "json",
+            success: function (result) {
+                var names = [];//定义两个数组
+                var nums = [];
+                $.each(result, function (key, values) { //此处我返回的是list<String,map<String,String>>循环map
+                    names.push(values.name);
+                    var obj = new Object();
+                    obj.name = values.name;
+                    obj.value = values.value;
+                    nums.push(obj);
+                });
+                myChart.setOption({ //加载数据图表
+                    legend: {
+                        data: []//names
+                    },
+                    series: {
+                        // 根据名字对应到相应的系列
+                        name: [],
+                        data: nums
+                    }
+                });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("查询失败");
+            }
+        })
+    }, 2000)
 }
 
 function get10MinutesScale() {
@@ -248,80 +249,83 @@ function loadTwoLine() {
                 type: 'line',
                 symbol: 'emptydiamond',    //设置折线图中表示每个坐标点的符号 emptycircle：空心圆；emptyrect：空心矩形；circle：实心圆；emptydiamond：菱形
                 data: []
-            }],animation: false
+            }],
+        animation: false   //关闭动画
     });
     //  myChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
-    var names = [];    //类别数组（实际用来盛放X轴坐标值）
-    var series1 = [];
-    var series2 = [];
-    var series3 = [];
-    var times = [];
-    $.ajax({
-        type: 'get',
-        url: 'finddemo',//请求数据的地址
-        dataType: "json",        //返回数据形式为json
-        success: function (result) {
-            //请求成功时执行该函数内容，result即为服务器返回的json对象
-            $.each(result.sameResult, function (index, item) {
-                names.push(item.rename);    //挨个取出类别并填入类别数组
-                series1.push(item.revalue);
-            });
-            $.each(result.yesterResult, function (index, item) {
-                series2.push(item.revalue);
-            });
-            $.each(result.beforeResult, function (index, item) {
-                series3.push(item.revalue);
-            });
-            $.each(result.timeResult, function (index, item) {
-                times.push(item.retime);
-            });
-            //   myChart.hideLoading();    //隐藏加载动画
-            myChart.setOption({        //加载数据图表
-                grid: {
-                    left: 200
-                },
-                legend: {
-                    x: 'left',
-                    data: times,
-                    inactiveColor: '#999',
-                    width: 70,
-                    top: 50,
-                    textStyle: {
-                        color: '#fff',
-                        fontSize: 10
-                    }
-                },
-                xAxis: {
-                    show: true,
-                    data: times,
-                    axisLabel: {
-                        show: true,
+
+    setInterval(function () {
+        var names = [];    //类别数组（实际用来盛放X轴坐标值）
+        var series1 = [];
+        var series2 = [];
+        var series3 = [];
+        var times = [];
+        $.ajax({
+            type: 'get',
+            url: 'finddemo',//请求数据的地址
+            dataType: "json",        //返回数据形式为json
+            success: function (result) {
+                //请求成功时执行该函数内容，result即为服务器返回的json对象
+                $.each(result.sameResult, function (index, item) {
+                    names.push(item.rename);    //挨个取出类别并填入类别数组
+                    series1.push(item.revalue);
+                });
+                $.each(result.yesterResult, function (index, item) {
+                    series2.push(item.revalue);
+                });
+                $.each(result.beforeResult, function (index, item) {
+                    series3.push(item.revalue);
+                });
+                $.each(result.timeResult, function (index, item) {
+                    times.push(item.retime);
+                });
+                //   myChart.hideLoading();    //隐藏加载动画
+                myChart.setOption({        //加载数据图表
+                    grid: {
+                        left: 200
+                    },
+                    legend: {
+                        x: 'left',
+                        data: times,
+                        inactiveColor: '#999',
+                        width: 70,
+                        top: 50,
                         textStyle: {
                             color: '#fff',
                             fontSize: 10
                         }
-                    }
-
-                },
-                series: [{
-                    name: times[0],
-                    data: series3
-                },
-                    {
-                        name: times[1],
-                        data: series2
                     },
-                    {
-                        name: times[2],
-                        data: series1
-                    }]
-            });
-        },
-        error: function (errorMsg) {
-            //请求失败时执行该函数
-            alert("图表请求数据失败!");
-            myChart.hideLoading();
-        }
-    });
+                    xAxis: {
+                        show: true,
+                        data: times,
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 10
+                            }
+                        }
+
+                    },
+                    series: [{
+                        name: times[0],
+                        data: series3
+                    },
+                        {
+                            name: times[1],
+                            data: series2
+                        },
+                        {
+                            name: times[2],
+                            data: series1
+                        }]
+                });
+            },
+            error: function (errorMsg) {
+                //请求失败时执行该函数
+                alert("图表请求数据失败!");
+                myChart.hideLoading();
+            }
+        });
+    }, 2000)
 };
-loadTwoLine();
